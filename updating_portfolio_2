@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Character encoding for the document -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design meta tag for mobile compatibility -->
+    <title>Portfolio</title> <!-- Title of the webpage -->
+    <style>
+        /* CSS Styles for resetting margin and padding */
+        * {
+            margin: 0; /* Reset default margin for all elements */
+            padding: 0; /* Reset default padding for all elements */
+            box-sizing: border-box; /* Adjust box model to include padding and border in element's total width and height */
+        }
+
+        /* Styles for the body */
+        body {
+            font-family: Arial, sans-serif; /* Set a default font for the body */
+        }
+
+        /* Container for the left and right sections */
+        .container {
+            display: flex; /* Use flexbox to create a flexible layout */
+            height: 100vh; /* Full viewport height */
+        }
+
+        /* Styles for the left section */
+        .left-section {
+            width: auto; /* Set width for the left section */
+            background-color: #5ea7faf6; /* Brown background */
+            color: white; /* White text color */
+            padding: 20px; /* Padding around content */
+            text-align: left; /* Align text to the left */
+            display: flex; /* Ensure it maintains height */
+            flex-direction: column; /* Stack children vertically */
+            font-family: 'Times New Roman', Times, serif; /* Set Times New Roman font */
+            line-height: 1.5; /* Set line spacing to 1.5 */
+            overflow-y: auto; /* Enable vertical scrolling */
+            flex : auto;
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 768px) {
+            .left-section {
+                width: 30%; /* Adjust width for smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .left-section {
+                width: 100%; /* Full width on very small screens */
+                padding: 10px; /* Reduce padding if needed */
+            }
+        }
+
+        /* Styles for the right section */
+        .right-section {
+            width: 80%; /* Set width for the right section */
+            background-color: #61c5f3bb; /* White background */
+            padding: 20px; /* Padding around content */
+            overflow-y: auto; /* Allow scrolling if content exceeds height */
+        }
+
+        /* Styles for the profile image */
+        .left-section img {
+            width: 200px; /* Set width for the profile image */
+            height: 200px; /* Set height for the profile image */
+            border-radius: 50%; /* Make the image round */
+            object-fit: cover; /* Cover the area while maintaining aspect ratio */
+            display: block; /* Display as block element */
+            margin: 0 auto 20px; /* Center image and add margin below */
+        }
+
+        /* Styles for buttons */
+        .btn {
+            display: block; /* Display as a block element */
+            width: 100%; /* Full width */
+            padding: 10px; /* Padding inside button */
+            margin: 10px 0; /* Margin around button */
+            background-color: #8B4513; /* Brown background for button */
+            color: white; /* White text color */
+            text-align: center; /* Center text in button */
+            border: none; /* No border */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            font-size: 16px; /* Font size for button text */
+        }
+
+        /* Styles for button hover effect */
+        .btn:hover {
+            background-color: #A0522D; /* Darker brown on hover */
+        }
+
+        /* Styles for hidden content sections */
+        .content {
+            display: none; /* Hide content sections initially */
+        }
+
+        /* Styles for the About Me section */
+        #about-content {
+            padding: 10px; /* Padding inside about section */
+            background-color: #61c5f3bb; /* Light gray background */
+            font-size: 16px; /* Font size for about section */
+            display: flex; /* Ensure it maintains height */
+            flex-direction: column; /* Stack children vertically */
+            line-height: 1.5; /* Set line spacing to 1.5 */
+        }
+
+        /* Styles for the Projects content section */
+        #projects-content {
+            padding: 10px; /* Padding inside projects section */
+            background-color: #61c5f3bb; /* Light gray background */
+        }
+
+        /* Styles for individual project boxes */
+        .project-box {
+            background-color: #ced9dfbb; /* Light background for project boxes */
+            border: 1px solid #ccc; /* Light border around boxes */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px; /* Increase padding for more space inside */
+            margin: 10px; /* Reduce margin around each box for better fitting */
+            width: calc(33.33% - 33px); /* Set width to 30% to fit 3 boxes in a row, accounting for margins */
+            min-height: 250px; /* Use min-height to allow it to expand but set a minimum */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Increase shadow for more depth */
+            text-align: center; /* Center content in project boxes */
+            display: flex; /* Flexbox for better control of content alignment */
+            flex-direction: column; /* Stack content vertically */
+            justify-content: space-between; /* Distribute content evenly */
+
+
+        }
+
+        /* Styles for the project list layout */
+        .project-list {
+            display: flex; /* Use flexbox for project boxes */
+            justify-content: flex-start; /* Center the project boxes horizontally */
+            align-items: flex-start; /* Align the boxes to the top of the container */
+            flex-wrap: wrap; /* Allow the boxes to wrap to the next line if necessary */
+            gap: 10px; /* Space between project boxes */
+            max-width: 1200px; /* Set a max-width to control the width of the group */
+            margin: 0 auto; /* Center the group of boxes on the page */
+            padding: 10px; /* Add padding around the container */
+        }
+
+        /* Styles for images in project boxes */
+        .project-box img {
+            width: 100%; /* Make the image fill the full width of the project box */
+            height: auto; /* Make the height adjust proportionally */
+            object-fit: contain; /* Ensure the image is resized to fit inside the box without overflow */
+            border-radius: 8px; /* Match the border radius of the project box */
+        }
+
+        .project-list::after {
+            content: ""; /* Empty content for centering effect */
+            flex: 1; /* Allow empty space to distribute remaining boxes */
+        }
+
+        .social-media {
+            margin-top: auto; /* Push social media buttons to the bottom */
+            display: flex; /* Use flexbox for layout */
+            flex-direction: column; /* Stack buttons vertically */
+        }
+
+        .social-media a {
+            margin-top: 10px; /* Space between buttons */
+            text-decoration: none; /* Remove underline from links */
+            color: #8B4513; /* Brown color for links */
+        }
+
+        .social-media a:hover {
+            color: #A0522D; /* Darker brown on hover */
+        }
+
+        .info-box {
+            background-color: #61c5f3bb; /* Light gray background for info box */
+            padding: 15px; /* Padding inside the info box */
+            margin-top: auto; /* Push info box to the bottom */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+            font-size: 18px
+        }
+          /* Info box styling */
+        .left-section {
+            margin-bottom: 0px; /* Adds 0px space after the info box */
+        }
+
+        /* Ensure content below the info box has no extra margin */
+        .content-below {
+            margin-top: 0; /* Removes any additional gap */
+            padding-top: 5px; /* Adds 5px space between content and info box */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section for profile and personal info -->
+        <div class="left-section" ;>
+            <!-- Profile image -->
+            <img src="images/img_02.jpg" alt="My Picture"> <!-- Profile image -->
+            <h1>Mohammed Imam Uddin Riad</h1> <!-- Name heading -->
+            <h2>Education</h2>
+            <p>BSC In Mechanical Engineering</p> 
+            <p>Chittagong University of Engineering and Technology</p> <!-- Placeholder for personal details -->
+           
+            <!-- Added space before Technical Skills -->
+            <h2 style="margin-top: 20px;">Technical Skills:</h2>
+            <p>SQL</p>
+            <p>Python</p>
+            <p>Power BI</p>
+            <p>Excel</p>
+
+            <!-- Added space before Technical Skills -->
+            <h2 style="margin-top: 20px;">Location:</h2>
+            <p>Chittagong, Bangladesh</p>
+
+
+            <!-- Info Box -->
+            <div class="info-box" style = "margin: 15px 0;" > <!--Adds space above and below the element, moving the whole info box down.-->
+                   <!-- Info section inside the left section -->
+
+                <h3>Contact Info</h3>
+                <p>Email: Imamuddinriad@gmail.com</p>
+                <p>Phone: +8801878705827 , 01316376034</p>
+            </div>
+
+            <div class="social-media">
+                <h3>Connect with Me:</h3>
+                <!-- <a href="https://www.facebook.com/imamuddinriyadh/" target="_blank">Facebook</a>  -->
+                <a href="https://www.linkedin.com/in/mohammed-imam-uddin-riad-1b7b682ab/" target="_blank">LinkedIn</a>
+                <a href="https://github.com/MRiadG" target="_blank">GitHub</a>
+            </div>
+        </div> 
+
+        <!-- Right Section for content display -->
+        <div class="right-section">
+            <button class="btn" onclick="toggleContent('about')">About Me</button> <!-- Button to show About Me section -->
+            <button class="btn" onclick="toggleContent('projects')">Projects</button> <!-- Button to show Projects section -->
+
+            <!-- Content sections (hidden initially) -->
+            <div id="about-content" class="content">
+                <h2>About Me</h2>
+                <p>
+                    I hold a Bachelor's degree in Mechanical Engineering from Chittagong University of Engineering and Technology. 
+                    Although my background is non-tech, I have developed strong skills in data analysis through hands-on experience with tools such as Power BI,
+                     Excel, Python, and SQL. My dedication to transitioning into the data analytics field is demonstrated through various projects, 
+                     where I applied these skills to solve real-world problems. I am passionate about using data to drive decisions and continuously
+                      enhance my expertise through ongoing learning and project work, which are highlighted in the project section.
+                </p>
+            </div>
+
+            <!-- Projects Section -->
+            <div id="projects-content" class="projects">
+                <h2>Projects</h2> <!-- Heading for Projects section -->
+                <!-- Button to toggle SQL projects -->
+                <button class="btn" onclick="toggleProject('sql')">SQL Projects</button>
+                <div id="sql-projects" class="project-list"> <!-- List for SQL projects -->
+                    <!-- Project boxes for SQL projects -->
+                    <div class="project-box">
+                        <a href="https://github.com/MRiadG/Portfolio_Projects/blob/main/SQL/Project%201/Data%20Retrieving.sql" target="_blank">
+                            <img src="images/sql_project 1.PNG" alt="SQL Project" width="100"> <!-- Project image -->
+                            <h3>Sales and Product Analysis for Fiscal Years 2020 and 2021</h3> <!-- Project title -->
+                            <p>This project entails a comprehensive analysis of sales and product performance across various dimensions,
+                                 particularly focusing on the fiscal years 2020 and 2021. The analysis leverages multiple SQL queries to 
+                                 extract insights from the database, with a focus on sales trends, customer performance, product segments, 
+                                 and overall market dynamics. The queries are designed to provide valuable business intelligence that can 
+                                 aid in strategic decision-making for stakeholders.
+                            </p> <!-- Placeholder for project description -->
+                        </a>
+                    </div>
+                </div>
+            
+                <!-- Button to toggle Python projects -->
+                <button class="btn" onclick="toggleProject('python')">Python Projects</button>
+                <div id="python-projects" class="project-list"> <!-- List for Python projects -->
+                    <div class="project-box">
+                        <a href="https://github.com/MRiadG/Portfolio_Projects/blob/main/Python/Loan%20Data%20Processing%20with%20NumPy/Loan_data_processing.ipynb" target="_blank">
+                            <img src="images/loan-_data_python.PNG" alt="Python Project" width="100"> <!-- Project image -->
+                            <h3>Loan Data Processing with NumPy</h3> <!-- Project title -->
+                            <p>
+                                This project focuses on loan data processing using NumPy, where the dataset contains both numerical and string values.
+                                 The primary tasks include loading the dataset, detecting and handling missing values, and splitting the data into numerical
+                                  and string columns. Missing data is identified and replaced with temporary values, while summary statistics such as mean,
+                                   minimum, and maximum are calculated for the numerical columns. The project prepares the dataset for further analysis, 
+                                   ensuring data is clean and structured for future modeling or reporting.</p> <!-- Placeholder for project description -->
+                        </a>
+                    </div>
+                    <!-- Add more project boxes as needed -->
+                </div>
+                <!-- Button to toggle Power BI projects -->
+                <button class="btn" onclick="toggleProject('powerbi')">Power BI Projects</button>
+                <div id="powerbi-projects" class="project-list"> <!-- List for Power BI projects -->
+                    <div class="project-box">
+                        <a href="https://github.com/MRiadG/Portfolio_Projects/tree/main/Power%20BI/Hospitality%20Domain%20Insight" target="_blank">
+                            <img src="images/hospitality domain.png" alt="Power BI Project" width="100"> <!-- Project image -->
+                            <h3>Hotel Booking Analytics: Week-on-Week Performance Analysis</h3> <!-- Project title -->
+                            <p> 
+                                This project presents a detailed Week-on-Week (WoW) analysis of hotel booking data using Power BI.
+                                 By utilizing five datasets—dim_date, dim_hotels, dim_rooms, fact_aggregated_bookings, and fact_bookings—the report 
+                                 examines weekly fluctuations in bookings, revenue, and customer behavior. WoW analysis provides insights into trends 
+                                 such as booking growth or decline, room occupancy rates, and platform-specific booking patterns.
+                                By tracking key performance metrics week-by-week, stakeholders can easily identify improvement areas, 
+                                 and optimize hotel operations for better resource allocation and strategic planning. 
+                                This analysis aids in making informed decisions based on real-time shifts in booking performance and 
+                                market dynamics.
+                            </p> <!-- Placeholder for project description -->
+                        </a>
+                    </div>
+                    <div class="project-box">
+                        <a href="https://github.com/MRiadG/Portfolio_Projects/tree/main/Power%20BI/T20%20cricket%20insights" target="_blank">
+                            <img src="images/combo T20.jpg" alt="Power BI Project" width="100"> <!-- Project image -->
+                            <h3>T20 Cricket Insights</h3> <!-- Project title -->
+                            <p>
+                                This project delivers a comprehensive analysis of T20 cricket matches, focusing on key performance indicators such as player statistics,
+                                 team performance, and match outcomes. Utilizing Power BI's interactive dashboards, the project provides visual insights into batting
+                                  and bowling metrics, player comparisons, and match dynamics. The dashboards are designed to help stakeholders identify trends, evaluate 
+                                  team strategies, and make data-driven decisions, offering a holistic view of the sport's competitive landscape.
+                            </p> <!-- Placeholder for project description -->
+                        </a>
+                    </div>
+                    <!-- Add more project boxes as needed -->
+                </div>
+                              
+                <!-- Button to toggle Excel projects -->
+                <button class="btn" onclick="toggleProject('excel')">Excel Projects</button>
+                <div id="excel-projects" class="project-list"> <!-- List for Excel projects -->
+                    <div class="project-box">
+                        <a href="https://github.com/MRiadG/Portfolio_Projects/tree/main/Excel/Streamlining%20Attendance%20Data%20for%20Efficient%20MIS%20Reporting" target="_blank">
+                            <img src="images/Streamlining Attendance Data for Efficient MIS Reporting.PNG" alt="Excel Project" width="100"> <!-- Project image -->
+                            <h3>Streamlining Attendance Data for Efficient MIS Reporting.</h3> <!-- Project title -->
+                            <p>
+                                The above data is received from software that maintains attendance & provides daily attendance in excel format,
+                                but this data is not useful to find out daily attendance in a short summary. It is showing very vast data which 
+                                is looking very complicated. so here in this project, I have converted the attendance data from vertical format 
+                                to horizontal format properly.
+                            </p> <!-- Placeholder for project description -->
+                        </a>
+                    </div>
+
+                    <div class="project-box">
+                        <a href="https://github.com/MRiadG/Portfolio_Projects/tree/main/Excel/Automated%20Expiry%20Tracking%20and%20Reporting%20for%20Products" target="_blank">
+                            <img src="images/Automated Expiry Tracking and Reporting for Products.PNG" alt="Excel Project" width="100"> <!-- Project image -->
+                            <h3>Automated Expiry Tracking and Reporting for Products</h3> <!-- Project title -->
+                            <p>
+                                The project aims to automate the tracking of product expiration dates, ensuring efficient inventory management for businesses dealing with perishable goods.
+                            </p> <!-- Placeholder for project description -->
+                        </a>
+                    </div>
+                    <div class="project-box">
+                        <a href="https://github.com/MRiadG/Portfolio_Projects/tree/main/Excel/Employee%20Attendance%20Tracker%20with%20Leave%20and%20Holiday%20Management" target="_blank">
+                            <img src="images/Employee attendance tracker.PNG" alt="Excel Project" width="100"> <!-- Project image -->
+                            <h3>Employee Attendance Tracker with Leave and Holiday Management</h3> <!-- Project title -->
+                            <p>
+                                This project aimed to create a comprehensive attendance tracking system by consolidating employee attendance data with leave allowance information. 
+                                The dataset included two sheets—one for daily attendance and another for leave allotments. In the attendance sheet, employees marked as "A" were absent, 
+                                but some absences were due to their approved leave, while others were truly absent without leave. The leave sheet provided specific information about 
+                                which employees were allowed to take leave on particular days. The goal was to generate a final, corrected attendance sheet that reflects:
+                            </p> <!-- Placeholder for project description -->
+                        </a>
+                    </div>
+                    <!-- Add more project boxes as needed -->                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle the visibility of content sections
+        function toggleContent(section) {
+            const aboutContent = document.getElementById('about-content'); // Get the About Me section
+            const projectsContent = document.getElementById('projects-content'); // Get the Projects section
+            
+            if (section === 'about') {
+                aboutContent.style.display = aboutContent.style.display === 'block' ? 'none' : 'block'; // Toggle About Me section visibility
+                projectsContent.style.display = 'none'; // Hide Projects section when About Me is displayed
+            } else if (section === 'projects') {
+                projectsContent.style.display = projectsContent.style.display === 'block' ? 'none' : 'block'; // Toggle Projects section visibility
+                aboutContent.style.display = 'none'; // Hide About Me section when Projects are displayed
+            }
+        }
+
+        // Function to toggle visibility of project lists
+        function toggleProject(project) {
+            const projectDiv = document.getElementById(project + '-projects'); // Get the specific project list based on project type
+            // Show or hide the project list based on its current state
+            if (projectDiv.style.display === 'block' || projectDiv.style.display === 'flex') {
+                projectDiv.style.display = 'none'; // Hide the project if it is currently visible
+            } else {
+                projectDiv.style.display = 'flex'; // Show the project list with flex to keep it side by side
+            }
+        }
+    </script>
+
+</body>
+</html>
